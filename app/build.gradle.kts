@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.psi.simpleNameExpressionVisitor
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -39,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
@@ -59,6 +62,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+    implementation ("androidx.appcompat:appcompat:1.7.0")
+
 
     // FIREBASE
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
