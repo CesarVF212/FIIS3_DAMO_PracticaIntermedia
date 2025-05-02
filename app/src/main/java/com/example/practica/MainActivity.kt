@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity() {
 
                     // Configurar el adaptador con los productos
                     adapter = ProductoAdapter(productos) { producto ->
-                        // Acción al hacer clic en un producto
-                        Toast.makeText(this@MainActivity, "Pulsado: ${producto.nombre}", Toast.LENGTH_SHORT).show()
-                        // Aquí abrirás la vista de detalle más adelante
+                        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                        intent.putExtra("producto", producto)
+                        startActivity(intent)
                     }
 
                     // Asignar el adaptador al RecyclerView
