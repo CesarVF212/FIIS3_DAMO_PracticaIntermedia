@@ -8,4 +8,7 @@ data class Producto
     val precio: Double,
     val valoracion: Float,
     val imagenUrl: String
-    )
+)
+{
+    constructor() : this(0, "", "", 0.0, 0.0f, "")
+}

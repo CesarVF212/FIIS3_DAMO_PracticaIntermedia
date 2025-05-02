@@ -68,10 +68,17 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.2.0")
 
 
-    // FIREBASE
-    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth")
+    dependencies {
+        // Firebase
+        implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+        implementation("com.google.firebase:firebase-firestore")
+        implementation("com.google.firebase:firebase-analytics")
+        implementation("com.google.firebase:firebase-auth")
+
+        // Google Play Services
+        implementation("com.google.android.gms:play-services-auth:20.1.0") // Añadir para la autenticación.
+        implementation("com.google.android.gms:play-services-base:17.6.0") // Dependencia base para servicios de Google
+    }
 
     // GLIDE.
     implementation("com.github.bumptech.glide:glide:4.16.0")

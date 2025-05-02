@@ -26,9 +26,11 @@ class ProductoAdapter(
             precio.text = "%.2f €".format(producto.precio)
             valoracion.text = "★ %.1f".format(producto.valoracion)
 
-            // Carga de imagen (puedes usar Glide o Picasso)
+            // Carga de imagen. En el caso de que no haya ponemos una por defecto.
             Glide.with(itemView.context)
                 .load(producto.imagenUrl)
+                .placeholder(R.drawable.default_image)
+                .error(R.drawable.default_image)
                 .into(imagen)
 
             itemView.setOnClickListener {
