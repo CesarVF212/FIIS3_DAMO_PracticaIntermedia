@@ -39,6 +39,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
         viewBinding = true
@@ -62,13 +63,16 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-
     implementation ("androidx.appcompat:appcompat:1.7.0")
+    // RecyclerView.
+    implementation ("androidx.recyclerview:recyclerview:1.2.0")
 
 
     // FIREBASE
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
+
+    // GLIDE.
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
