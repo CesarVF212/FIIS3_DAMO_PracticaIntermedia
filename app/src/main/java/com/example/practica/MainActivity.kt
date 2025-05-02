@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practica.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProductoAdapter
-    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +27,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicializar Firebase Auth y Firestore
+        // Inicializar Firebase Auth
         auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
 
         // Verificar si el usuario está autenticado
         val currentUser = auth.currentUser
@@ -43,31 +43,30 @@ class MainActivity : AppCompatActivity() {
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Leer productos desde Firestore
-        db.collection("Productos")
-            .get()
-            .addOnSuccessListener { result ->
-                val productos = mutableListOf<Producto>()
-                for (document in result) {
-                    val producto = document.toObject(Producto::class.java)
-                    productos.add(producto)
+        // Obtener productos desde el servidor usando Retrofit
+        RetrofitClient.apiService.getProductos().enqueue(object : Callback<List<Producto>> {
+            override fun onResponse(call: Call<List<Producto>>, response: Response<List<Producto>>) {
+                if (response.isSuccessful) {
+                    val productos = response.body() ?: emptyList()
+
+                    // Configurar el adaptador con los productos
+                    adapter = ProductoAdapter(productos) { producto ->
+                        // Acción al hacer clic en un producto
+                        Toast.makeText(this@MainActivity, "Pulsado: ${producto.nombre}", Toast.LENGTH_SHORT).show()
+                        // Aquí abrirás la vista de detalle más adelante
+                    }
+
+                    // Asignar el adaptador al RecyclerView
+                    recyclerView.adapter = adapter
+                } else {
+                    Toast.makeText(this@MainActivity, "Error al obtener productos", Toast.LENGTH_SHORT).show()
                 }
-
-                // Configurar el adaptador con los productos
-                adapter = ProductoAdapter(productos) { producto ->
-                    // Acción al hacer clic en un producto
-                    Toast.makeText(this, "Pulsado: ${producto.nombre}", Toast.LENGTH_SHORT).show()
-                    // Aquí abrirás la vista de detalle más adelante
-                }
-
-                // Asignar el adaptador al RecyclerView
-                recyclerView.adapter = adapter
             }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error al cargar productos: ${exception.message}", Toast.LENGTH_SHORT).show()
 
-                // Lo mando a Logcat también por que me esta lanzando un error y no lo puedo ver bien.
-                Log.e("ProductoError", "Error al cargar productos: ${exception.message}")
+            override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Error de conexión: ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.e("RetrofitError", "Error al obtener productos: ${t.message}")
             }
+        })
     }
 }

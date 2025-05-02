@@ -78,6 +78,10 @@ dependencies {
         // Google Play Services
         implementation("com.google.android.gms:play-services-auth:20.1.0") // Añadir para la autenticación.
         implementation("com.google.android.gms:play-services-base:17.6.0") // Dependencia base para servicios de Google
+
+        // Retrofit.
+        implementation("com.squareup.retrofit2:retrofit:2.9.0")
+        implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     }
 
     // GLIDE.
