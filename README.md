@@ -1,3 +1,37 @@
+# --- ENGLISH ---
+
+# FIIS3_DAMO_PracticaAndroid
+
+This project is a free-theme Android app with a login screen, a list of items loaded from an external API, an item detail screen, and a local database section such as favorites or a shopping cart.
+It uses a RecyclerView, Volley/Retrofit for networking, Glide for images, and Fragments for the final version.
+
+---
+
+Semi-Free Practice for the Mobile Application Development course of the third year of the Double Degree in Software Engineering and Computational Physics at U-TAD.
+
+A practice built on Android with a free theme must be submitted: clothing store, movie manager, to-do list, game, etc.
+
+## Requirements
+
+- A first screen where a login is performed
+- A second screen, navigated to from the login, that shows a RecyclerView of items, which will be loaded from an API using Volley / Retrofit
+- A third screen that shows the detail of the tapped item, such as name, price, description, etc.
+- A fourth screen where data saved in a database is managed, such as a shopping cart, a favorites section or something similar
+- Multimedia elements: the application will display elements such as images that will be loaded externally with Glide
+
+The class API cannot be used, so any practice that uses that resource will not be evaluated.
+
+## Final Submission
+
+For the final submission, the following must be taken into account:
+
+- If the application is submitted with all of the above requirements and with Fragments, it will be graded out of 10.
+- If the application is submitted with all of the above requirements but without Fragments, it will be graded out of 8.
+
+The final application must be submitted, with authentication, database and Fragments functionality. If you have passed the midterm exam and submitted the intermediate practice, you do not need to attend on the day of the exam.
+
+# --- SPANISH --- 
+
 # FIIS3_DAMO_PracticaAndroid
 Práctica Semi-Libre para la asignatura de Desarrollo de Aplicaciones Moviles del Tercer Curso del Doble Grado en Ingeniería de Software y Física Computacional en la U-TAD.
 
